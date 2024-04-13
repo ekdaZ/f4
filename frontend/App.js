@@ -1,7 +1,13 @@
-import { View, Pressable} from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { useState } from "react";
+import { View, Pressable } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import axios from "axios";
+
+const baseUrl = "http://localhost:3001/";
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View className="relative">
       <View className="top-4">
@@ -26,7 +32,32 @@ export default function App() {
   );
 }
 
-function onPressFunction(icon){
-  console.log("pressing", icon)
+function importCalender(data) {
+  axios.post(baseUrl + "generate_timetable");
 }
 
+function onPressFunction() {
+  const options = {
+    method: "POST",
+    url: baseUrl + "get_timetable",
+    headers: {
+      "content-type": "application/json",
+    },
+    data: {
+      week: "2024-02-24",
+    },
+  };
+
+  const gettingData = async () => {
+    return await axios
+      .request(options)
+      .then((response) => {
+        console.log("resposne", response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log("this is the error ", error);
+      });
+  };
+  return gettingData();
+}
