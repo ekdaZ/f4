@@ -11,7 +11,7 @@ export default function Input() {
   };
 
   return (
-    <View className="mt-20 relative justify-center align-bottom">
+    <View className="bg-gray-50 trans absolute -mt-[350px]">
       <View className="border rounded p-4 shadow-xl">
         <View>
           <Text>Write you code in here</Text>
