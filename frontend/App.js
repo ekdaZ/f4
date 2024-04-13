@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import InputModal from "./src/Input.js";
 import { EventRegister } from "react-native-event-listeners";
-import Input from "./src/Input.js";
+
 
 const baseUrl = "http://localhost:3001/";
 
