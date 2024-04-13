@@ -1,5 +1,6 @@
 """The main webserver for the project"""
 
+import ast
 import json
 from flask import Flask, render_template, request
 from flask_cors import CORS
@@ -9,9 +10,10 @@ import calendar_algor
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/get_timetable", methods=["POST","GET"])
-def get_timetable_week():
-    response_data = work_cal.read_calendar()
+@app.route("/get_timetable_day", methods=["POST","GET"])
+def get_timetable_day():
+    request_data = ast.literal_eval(request.data.decode("UTF-8"))
+    response_data = work_cal.get_day(request_data['day'])
     return json.dumps(response_data)
 
 
