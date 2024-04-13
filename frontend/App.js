@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { View, Pressable, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
-import InputModal from "./src/Input.js";
 import { EventRegister } from "react-native-event-listeners";
-import Input from "./src/Input.js";
+import InputModal from "./src/Input.js";
+import CalenderView from "./src/CalenderView.js";
 
 const baseUrl = "http://localhost:3001/";
 
@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <View className="flex">
-      <View className="flex top-4">
+      <View className="flex top-4 z-10">
         <Pressable
           className="absolute top-10 rounded-full p-4 border left-5"
           onPress={() => onPressFunction("download")}
@@ -57,6 +57,9 @@ export default function App() {
             <Icon name="plus" size={20} />
           </View>
         </Pressable>
+      </View>
+      <View className="flex mt-[120px]">
+        <CalenderView/>
       </View>
       {renderInput()}
     </View>
