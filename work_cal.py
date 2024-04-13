@@ -20,6 +20,7 @@ def event_to_dict(event):
         'location': event.location,
         # 'Description': event.description,
         'begin': event.begin,
+        'end': event.end,
         'priority': 'high',
         'completion': completion,
     }
@@ -27,7 +28,7 @@ def event_to_dict(event):
 
 
 
-def calendar_reader():
+def ics_to_csv():
     with open('c_test.ics', 'r') as f:
         icsFile = ics.Calendar(f.read())
         events = [event_to_dict(event) for event in icsFile.events]
@@ -35,8 +36,15 @@ def calendar_reader():
 # calendar_link = 'https://mytimetable.bath.ac.uk/ical?eu=bHoyMDkxQGJhdGguYWMudWs=&h=KGJcLYfDMYrEkRccsDpsc5XKA1kwIcsb3nEI5Ebh_FM='
 
 
+def read_calendar():
+    df = pd.DataFrame(ics_to_csv())
+    print(df)
 
-df_calendar = pd.DataFrame(calendar_reader())
+def get_week():
+    datetime.now(timezone.utc)
+
+# def get_day():
+
 # df_calendar['begin'] = pd.to_datetime(df_calendar['begin']).dt.normalize()
 
 # # Filter out old events (if necessary)
@@ -48,5 +56,5 @@ df_calendar = pd.DataFrame(calendar_reader())
 # # Filter in only actual 'busy' events, not 'tentative', and duration > 0 and duration <= 8h
 # df_calendar = df_calendar.loc[(df_calendar['name'] == 'Busy') & (df_calendar['duration_hours'] > 0) & (df_calendar['duration_hours'] <= 8)]
 
-df_calendar.info()
-print(df_calendar.tail())
+
+print(read_calendar())

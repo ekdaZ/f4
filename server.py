@@ -3,16 +3,15 @@
 import json
 from flask import Flask, render_template, request
 from flask_cors import CORS
-import calendar_read
+import work_cal
 import user_add
 import calendar_algor
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/get_timetable", methods=["GET"])
-def get_timetable():
-    """Handles the get_stock_price API call"""
-    response_data = calendar_read.read_calendar()
+@app.route("/get_timetable", methods=["POST","GET"])
+def get_timetable_week():
+    response_data = work_cal.read_calendar()
     return json.dumps(response_data)
 
 
