@@ -32,16 +32,32 @@ export default function App() {
   );
 }
 
+function importCalender(data) {
+  axios.post(baseUrl + "generate_timetable");
+}
+
 function onPressFunction() {
+  const options = {
+    method: "POST",
+    url: baseUrl + "get_timetable",
+    headers: {
+      "content-type": "application/json",
+    },
+    data: {
+      week: "2024-02-24",
+    },
+  };
+
   const gettingData = async () => {
-    const data = await axios
-      .get(baseUrl + 'get_timetable')
+    return await axios
+      .request(options)
       .then((response) => {
-        return response.data
+        console.log("resposne", response.data);
+        return response;
       })
       .catch((error) => {
-        console.log("this is the ", error);
+        console.log("this is the error ", error);
       });
   };
-  console.log(gettingData());
+  return gettingData();
 }
