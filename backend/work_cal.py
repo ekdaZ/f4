@@ -30,7 +30,7 @@ def event_to_dict(event):
 
 
 def ics_to_csv():
-    with open('c_test.ics', 'r') as f:
+    with open('backend/c_test.ics', 'r') as f:
         icsFile = ics.Calendar(f.read())
         events = [event_to_dict(event) for event in icsFile.events]
     return events
@@ -39,32 +39,16 @@ def ics_to_csv():
 
 def read_calendar():
     df = pd.DataFrame(ics_to_csv())
-    df.to_pickle('table')
+    df.to_pickle('backend/table')
  
 
 def get_week():
     datetime.now(timezone.utc)
 
 def get_day(day):
-    df = pd.read_pickle('table')
-    print(df['day'])
-
-def dummy():
     df = pd.read_pickle('backend/table')
-    return df.head()
+    return df.loc[df['day'] == day]
 
-# df_calendar['begin'] = pd.to_datetime(df_calendar['begin']).dt.normalize()
+print(read_calendar())
 
-# # Filter out old events (if necessary)
-# #df_calendar = df_calendar.loc[df_calendar['begin'] >= '2022-01-01']
-
-# # Filter out future events
-# df_calendar = df_calendar.loc[df_calendar['begin'] <= pd.Timestamp.today()]
-
-# # Filter in only actual 'busy' events, not 'tentative', and duration > 0 and duration <= 8h
-# df_calendar = df_calendar.loc[(df_calendar['name'] == 'Busy') & (df_calendar['duration_hours'] > 0) & (df_calendar['duration_hours'] <= 8)]
-
-
-# print(read_calendar())
-
-dummy()
+print(get_day('2024-04-15'))
