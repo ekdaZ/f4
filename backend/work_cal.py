@@ -49,6 +49,10 @@ def get_day(day):
     df = pd.read_pickle('table')
     print(df['day'])
 
+def dummy():
+    df = pd.read_pickle('backend/table')
+    return df.head()
+
 # df_calendar['begin'] = pd.to_datetime(df_calendar['begin']).dt.normalize()
 
 # # Filter out old events (if necessary)
@@ -63,4 +67,4 @@ def get_day(day):
 
 # print(read_calendar())
 
-get_day(datetime.now(timezone.utc))
+dummy()
