@@ -16,11 +16,12 @@ def event_to_dict(event):
         completion = True
     return {
         'name': event.name,
-        'begin': event.begin.date().strftime('%Y-%m-%d'),
+        'day': event.begin.date().strftime('%Y-%m-%d'),
         'location': event.location,
         # 'Description': event.description,
         'begin': event.begin,
         'end': event.end,
+        # 'day': event.begin.date().strftime('%Y-%m-%d
         'priority': 'high',
         'completion': completion,
     }
@@ -38,12 +39,15 @@ def ics_to_csv():
 
 def read_calendar():
     df = pd.DataFrame(ics_to_csv())
-    print(df)
+    df.to_pickle('table')
+ 
 
 def get_week():
     datetime.now(timezone.utc)
 
-# def get_day():
+def get_day(day):
+    df = pd.read_pickle('table')
+    print(df['day'])
 
 # df_calendar['begin'] = pd.to_datetime(df_calendar['begin']).dt.normalize()
 
@@ -57,4 +61,6 @@ def get_week():
 # df_calendar = df_calendar.loc[(df_calendar['name'] == 'Busy') & (df_calendar['duration_hours'] > 0) & (df_calendar['duration_hours'] <= 8)]
 
 
-print(read_calendar())
+# print(read_calendar())
+
+get_day(datetime.now(timezone.utc))
