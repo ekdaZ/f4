@@ -54,25 +54,42 @@ def get_day(day):
 #     df = pd.read_csv('backend/table')
 #     return df.loc[df['location'] == location]
 
-def new_coursework(name, end, total_hours, per_session, per_day, per_week):
-    sessions = total_hours % per_session
-    if (total_hours % per_session) == 0:
-        sessions = total_hours % per_session
+def new_coursework(name, end, total_hours, per_day, per_week):
+    pointer_day = datetime.now().date()
+    total_days = end - pointer_day
+    if (total_hours > total_days*per_week*per_day//7):
+        print('ur fucked')
     else:
-        sessions = total_hours % per_session + 1
+        print('fine')
+        while(total_hours>0):
+            week = get_week_python(pointer_day)
+            # total_hours =
     return 0
 
-def get_week_python():
+def get_week_python(day):
     df = pd.read_csv('backend/table')
-    day = datetime.now().date()
     week = []
     for i in range(0,6):
         outputdf = df.loc[df['day'] == day.strftime('%Y-%m-%d')]
         week.append(outputdf)
         day += timedelta(days=1)
+        week = bubbleSort(week)
+    return week
+
+
+def bubbleSort(week):
+    n = len(week)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n-i-1):
+            if len(week[j]) > len(week[j+1]):
+                week[j], week[j+1] = week[j+1], week[j]
+                swapped = True
+        if (swapped == False):
+            break
     return week
 
 # print(read_calendar())
 # get_week(15)
 
-get_week_python()
+print(get_week_python(datetime.now().date()))
