@@ -14,7 +14,7 @@ export default function Input() {
     <View className="mt-20 relative justify-center align-bottom">
       <View className="border rounded p-4 shadow-xl">
         <View>
-          <Text>Write you code in here</Text>
+        <TextInput className="to-black" placeholder="Event Name" style={{textAlign:"left"}}></TextInput>
           <View className="border border-gray-300 rounded shadow-2xl	">
             <Button
               className=""
