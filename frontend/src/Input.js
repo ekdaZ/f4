@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { View, Modal, Pressable, Text, Button } from "react-native";
+import { View, Pressable, Text, Button } from "react-native";
 import { EventRegister } from "react-native-event-listeners";
-// import Modal from "react-native-modal";
 
 const baseUrl = "http://localhost:3001/";
 
 export default function Input() {
   const closeModal = () => {
+    console.log("closing it");
     EventRegister.emit("closeModal", "Input");
   };
 
@@ -15,13 +15,15 @@ export default function Input() {
       <View className="border rounded p-4 shadow-xl">
         <View>
           <Text>Write you code in here</Text>
-          <View className='border border-gray-300 rounded shadow-2xl	'>
-          <Button className='' title='submit'>
-          </Button>
+          <View className="border border-gray-300 rounded shadow-2xl	">
+            <Button
+              className=""
+              title="submit"
+              onPress={() => closeModal()}
+            ></Button>
           </View>
         </View>
       </View>
-
     </View>
   );
 }
