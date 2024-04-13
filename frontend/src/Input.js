@@ -43,8 +43,12 @@ export default function Input() {
         placeholder="Event Name"
         placeholderTextColor="black"
         width = "auto"
+        fontWeight = "bold"
+        fontSize = "20"
+        
       />
-
+      
+      
       <View style={styles.row}>
         <Text style={styles.label}>Start Date:</Text>
         <TextInput
