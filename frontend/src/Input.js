@@ -6,7 +6,6 @@ const baseUrl = "http://localhost:3001/";
 
 export default function Input() {
   const closeModal = () => {
-    console.log("closing it");
     EventRegister.emit("closeModal", "Input");
   };
 

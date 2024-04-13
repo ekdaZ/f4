@@ -21,7 +21,6 @@ export default function App() {
         } else if (data === "Export") {
           setExportModalVisible(false);
         }
-        console.log(data);
       }
     );
     return () => {
@@ -50,7 +49,7 @@ export default function App() {
           <Icon name="download" size={20} />
         </Pressable>
         <Pressable
-          className="absolute top-10 right-10 rounded-full p-4 border justify-end"
+          className="absolute top-10 right-5 rounded-full p-4 border justify-end"
           onPress={() => setInputModalVisible(true)}
         >
           <View>
