@@ -1,7 +1,13 @@
-import { View, Pressable} from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { useState } from "react";
+import { View, Pressable } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import axios from "axios";
+
+const baseUrl = "http://localhost:3001/";
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View className="relative">
       <View className="top-4">
@@ -26,7 +32,16 @@ export default function App() {
   );
 }
 
-function onPressFunction(icon){
-  console.log("pressing", icon)
+function onPressFunction() {
+  const gettingData = async () => {
+    const data = await axios
+      .get(baseUrl + 'get_timetable')
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        console.log("this is the ", error);
+      });
+  };
+  console.log(gettingData());
 }
-
