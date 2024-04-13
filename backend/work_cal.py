@@ -61,10 +61,19 @@ def new_coursework(name, end, total_hours, per_day, per_week):
         print('ur fucked')
     else:
         print('fine')
-        while(total_hours>0):
-            week = get_week_python(pointer_day)
-            # total_hours =
-    return 0
+    #     while(total_hours>0):
+    #         week = get_week_python(pointer_day)
+    #         asign_date = datetime.now().date()
+    #         for day in week:
+    #             for event in day:
+    #                 if isNowInTimePeriod(event):
+    #                     #assign it
+    # return 0
+def isNowInTimePeriod(startTime, endTime, nowTime): 
+    if startTime < endTime: 
+        return nowTime >= startTime and nowTime <= endTime 
+    else: 
+        return nowTime >= startTime or nowTime <= endTime 
 
 def get_week_python(day):
     df = pd.read_csv('backend/table')
@@ -74,6 +83,9 @@ def get_week_python(day):
         week.append(outputdf)
         day += timedelta(days=1)
         week = bubbleSort(week)
+    begin_column = week[2].columns[week[2].columns.get_loc('begin')]
+    end_column = week[2].columns[week[2].columns.get_loc('end')]
+    print(begin_column,end_column)
     return week
 
 
@@ -90,6 +102,6 @@ def bubbleSort(week):
     return week
 
 # print(read_calendar())
-# get_week(15)
-
-print(get_week_python(datetime.now().date()))
+# print(get_day('2024-04-15'))
+get_week_python(datetime.now().date())
+# print(new_coursework('cw1', , total_hours, per_day, per_week))
