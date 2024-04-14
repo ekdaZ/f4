@@ -67,7 +67,7 @@ def new_coursework(name, end, total_hours, per_day, per_week):
             for day in week:
                 for event in day:
                     if isNowInTimePeriod(week['begin'], week['end'],asign_date):
-                        #assign it
+                        
                         pass
     pass
 def isNowInTimePeriod(startTime, endTime, nowTime): 
