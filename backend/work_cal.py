@@ -56,18 +56,21 @@ def get_day(day):
 
 def new_coursework(name, end, total_hours, per_day, per_week):
     pointer_day = datetime.now().date()
-    total_days = end - pointer_day
+    df = pd.read_csv('backend/table')
+    total_days = end.date() - pointer_day
+    total_days = total_days.days
     if (total_hours > total_days*per_week*per_day//7):
         print('ur fucked')
     else:
-        print('fine')
         while(total_hours>0):
             week = get_week_python(pointer_day)
-            for day in week:
-                for event in day:
-                    begin = event.begin
-                    print(begin)
-    pass
+            for _, day in week.iterrows():
+                begin = day['begin']
+                end_event = day['end']
+                if isNowInTimePeriod(begin, end_event, datetime.now(timezone.utc)):
+                    total_hours -= 1
+                    
+
 def isNowInTimePeriod(startTime, endTime, nowTime): 
     if startTime < endTime: 
         return nowTime >= startTime and nowTime <= endTime 
@@ -84,23 +87,23 @@ def get_week_python(day):
         # week = bubbleSort(week)
     tasks_count = week.groupby('day').size().reset_index(name='task_count')
     week = week.merge(tasks_count, on='day').sort_values(by='task_count')
-    print(week[0]['begin'])
+    # print(week[0]['begin'])
     return week
 
 
-def bubbleSort(week):
-    n = len(week)
-    for i in range(n):
-        swapped = False
-        for j in range(0, n-i-1):
-            if len(week[j]) > len(week[j+1]):
-                week[j], week[j+1] = week[j+1], week[j]
-                swapped = True
-        if (swapped == False):
-            break
-    return week
+# def bubbleSort(week):
+#     n = len(week)
+#     for i in range(n):
+#         swapped = False
+#         for j in range(0, n-i-1):
+#             if len(week[j]) > len(week[j+1]):
+#                 week[j], week[j+1] = week[j+1], week[j]
+#                 swapped = True
+#         if (swapped == False):
+#             break
+#     return week
 
 # print(read_calendar())
 # print(get_day('2024-04-15'))
-get_week_python(datetime.now().date())
-print(new_coursework('cw1', 100, 2, 7))
+# print(get_week_python(datetime.now().date()))
+print(new_coursework('cw1', datetime.strptime('2024 4 23', '%Y %m %d') , 10, 7, 7))
