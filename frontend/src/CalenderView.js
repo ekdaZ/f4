@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Calendar } from "react-native-calendars";
@@ -9,9 +9,9 @@ export default function CalenderView() {
   const [selected, setSelected] = useState("");
   const [dateData, setDateData] = useState([
     {
-      name: "dwa",
-      begin: "gr",
-      end: "gr",
+      name: "",
+      begin: "",
+      end: "",
     },
   ]);
 
@@ -66,17 +66,17 @@ export default function CalenderView() {
       ></Calendar>
       <View className="px-[50px] mt-5">
         <FlatList
-        className='absolute ml-[50px]'
+          className="absolute ml-[50px]"
           data={dateData}
           renderItem={(item) => (
             <View className="flex flex-col my-1">
-              <Text className="text-lg">{item["item"].name} </Text>
-              <Text className="text-gray-400 ">
-                {item["item"].begin} - {item["item"].end}{" "}
-              </Text>
-              <View
-              className='h-px mt-2 bg-gray-200 border-0 dark:bg-gray-700'
-              />
+              <Pressable onPress={() => console.log(item)}>
+                <Text className="text-lg">{item["item"].name} </Text>
+                <Text className="text-gray-400 ">
+                  {item["item"].begin} - {item["item"].end}{" "}
+                </Text>
+              </Pressable>
+              <View className="h-px mt-2 bg-gray-200 border-0 dark:bg-gray-700" />
             </View>
           )}
         />
