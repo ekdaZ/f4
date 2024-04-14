@@ -107,4 +107,4 @@ def get_week_python(day):
 # print(read_calendar())
 # print(get_day('2024-04-15'))
 # print(get_week_python(datetime.now().date()))
-print(new_coursework('cw1', datetime.strptime('2024 4 23', '%Y %m %d') , 10, 7, 7))
+# print(new_coursework('cw1', datetime.strptime('2024 4 23', '%Y %m %d') , 10, 7, 7))
