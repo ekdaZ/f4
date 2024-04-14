@@ -5,14 +5,14 @@ import { EventRegister } from "react-native-event-listeners";
 
 const baseUrl = "http://localhost:3001/";
 
-export default function Input() {
+export default function Export() {
   const closeModal = () => {
-    EventRegister.emit("closeModal", "Input");
+    EventRegister.emit("closeModal", "Export");
   };
 
   const styles = StyleSheet.create({
     container: {
-      padding: 10,
+      padding: 10
     },
     row: {
       flexDirection: 'row', // Set direction of inner items to row
@@ -35,12 +35,12 @@ export default function Input() {
   });
 
   return (
-    <View className="bg-gray-50 -mt-[600px]" style={{width:"70%"}}>
+    <View className="bg-gray-50 trans absolute -mt-[600px]" style={{width:"70%"}}>
       <View className="border rounded p-4 shadow-xl">
         <View className="grid grid-cols-2 grid-rows-4 gap-2">
         <View style={styles.container}>
       <TextInput
-        placeholder="Event Name"
+        placeholder="Export"
         placeholderTextColor="gray"
         width = "auto"
         fontWeight = "bold"

@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import { EventRegister } from "react-native-event-listeners";
 import InputModal from "./src/Input.js";
+import ExportModal from "./src/Export.js";
 import CalenderView from "./src/CalenderView.js";
 
 const baseUrl = "http://localhost:3001/";
@@ -31,8 +32,18 @@ export default function App() {
   const renderInput = () => {
     if (inputModalVisible) {
       return (
-        <View className="relative flex mt-80 items-center align-middle">
+        <View className="relative flex top-[450px] items-center align-middle">
           <InputModal />
+        </View>
+      );
+    }
+    return;
+  };
+  const renderExport = () => {
+    if (exportModalVisible) {
+      return (
+        <View className="relative flex top-[450px] items-center align-middle">
+          <ExportModal />
         </View>
       );
     }
@@ -44,13 +55,19 @@ export default function App() {
       <View className="flex top-4 z-10">
         <Pressable
           className="absolute top-10 rounded-full p-4 border left-5"
-          onPress={() => onPressFunction("download")}
+          onPress={() => {
+            setExportModalVisible(true);
+            setInputModalVisible(false);
+          }}
         >
           <Icon name="download" size={20} />
         </Pressable>
         <Pressable
           className="absolute top-10 right-5 rounded-full p-4 border justify-end"
-          onPress={() => setInputModalVisible(true)}
+          onPress={() => {
+            setInputModalVisible(true);
+            setExportModalVisible(false);
+          }}
         >
           <View>
             <Icon name="plus" size={20} />
@@ -58,9 +75,10 @@ export default function App() {
         </Pressable>
       </View>
       <View className="flex mt-[120px]">
-        <CalenderView/>
+        <CalenderView />
       </View>
       {renderInput()}
+      {renderExport()}
     </View>
   );
 }
