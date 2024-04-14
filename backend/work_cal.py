@@ -67,8 +67,9 @@ def new_coursework(name, end, total_hours, per_day, per_week):
             for _, day in week.iterrows():
                 begin = day['begin']
                 end_event = day['end']
-                if isNowInTimePeriod(begin, end_event, datetime.now(timezone.utc)):
-                    total_hours -= 1
+                # if isNowInTimePeriod(begin, end_event, datetime.now(timezone.utc)):
+                total_hours -= 1
+                print("begin - ",begin, "end - ",end_event)
                     
 
 def isNowInTimePeriod(startTime, endTime, nowTime): 
