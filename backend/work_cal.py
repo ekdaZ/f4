@@ -63,12 +63,10 @@ def new_coursework(name, end, total_hours, per_day, per_week):
         print('fine')
         while(total_hours>0):
             week = get_week_python(pointer_day)
-            asign_date = datetime.now().date()
             for day in week:
                 for event in day:
-                    if isNowInTimePeriod(week['begin'], week['end'],asign_date):
-                        
-                        pass
+                    begin = event.begin
+                    print(begin)
     pass
 def isNowInTimePeriod(startTime, endTime, nowTime): 
     if startTime < endTime: 
@@ -105,4 +103,4 @@ def bubbleSort(week):
 # print(read_calendar())
 # print(get_day('2024-04-15'))
 get_week_python(datetime.now().date())
-# print(new_coursework('cw1', , total_hours, per_day, per_week))
+print(new_coursework('cw1', 100, 2, 7))
