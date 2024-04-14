@@ -66,9 +66,9 @@ def new_coursework(name, end, total_hours, per_day, per_week):
             asign_date = datetime.now().date()
             for day in week:
                 for event in day:
-                    if isNowInTimePeriod(event):
+                    if isNowInTimePeriod(week['begin'], week['end'],asign_date):
                         #assign it
-                        frf
+                        pass
     pass
 def isNowInTimePeriod(startTime, endTime, nowTime): 
     if startTime < endTime: 
@@ -78,19 +78,15 @@ def isNowInTimePeriod(startTime, endTime, nowTime):
 
 def get_week_python(day):
     df = pd.read_csv('backend/table')
-    week = []
+    week = pd.DataFrame()
     for i in range(0,6):
         outputdf = df.loc[df['day'] == day.strftime('%Y-%m-%d')]
-        week.append(outputdf)
+        week= pd.concat([week,outputdf])
         day += timedelta(days=1)
-        week = bubbleSort(week)
-
-    # LEOOOOOOOOOOOOOO
-    # LEOOOOOOOOOOOOOOO
-    # Rough work  but the isnowintimeperiod is perfect
-    # begin_column = week[2].columns[week[2].columns.get_loc('begin')]
-    # end_column = week[2].columns[week[2].columns.get_loc('end')]
-    # print(begin_column,end_column)
+        # week = bubbleSort(week)
+    tasks_count = week.groupby('day').size().reset_index(name='task_count')
+    week = week.merge(tasks_count, on='day').sort_values(by='task_count')
+    print(week[0]['begin'])
     return week
 
 
@@ -108,5 +104,5 @@ def bubbleSort(week):
 
 # print(read_calendar())
 # print(get_day('2024-04-15'))
-print(get_week_python(datetime.now().date()))
+get_week_python(datetime.now().date())
 # print(new_coursework('cw1', , total_hours, per_day, per_week))
