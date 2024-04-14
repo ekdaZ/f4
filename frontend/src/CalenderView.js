@@ -66,6 +66,7 @@ export default function CalenderView() {
       ></Calendar>
       <View className="px-[50px] mt-5">
         <FlatList
+        className='absolute ml-[50px]'
           data={dateData}
           renderItem={(item) => (
             <View className="flex flex-col my-1">
