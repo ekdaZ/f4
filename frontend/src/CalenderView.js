@@ -42,7 +42,7 @@ export default function CalenderView() {
           setDateData(dataList);
         })
         .catch((error) => {
-          console.log("this is the error ", error);
+          console.log("error getting data: ", error);
         });
     };
     gettingData();
@@ -70,7 +70,7 @@ export default function CalenderView() {
           data={dateData}
           renderItem={(item) => (
             <View className="flex flex-col my-1">
-              <Pressable onPress={() => console.log(item)}>
+              <Pressable>
                 <Text className="text-lg">{item["item"].name} </Text>
                 <Text className="text-gray-400 ">
                   {item["item"].begin} - {item["item"].end}{" "}

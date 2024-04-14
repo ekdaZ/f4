@@ -20,8 +20,9 @@ def get_timetable_day():
 @app.route("/user_input", methods=["POST"])
 def user_input():
     """For when the user makes a mistake that needs to be logged"""
-    data = json.loads(json.dumps(request.json))
-    user_add.event_add("ctest.csv", data['title'],data['time'],data['duration'] ,request.json)
+    request_data = ast.literal_eval(request.data.decode("UTF-8"))
+    print("request data", request_data)
+    user_add.event_add("ctest.csv", request_data['name'],request_data['time'],request_data['duration'] ,request.json)
     return json.dumps(1)
 
 @app.route("/generate_timetable", methods=["GET"])

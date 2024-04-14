@@ -13,11 +13,12 @@ import { EventRegister } from "react-native-event-listeners";
 const baseUrl = "http://localhost:3001/";
 
 export default function Input() {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [duration, setDuration] = useState('');
-  const [perWeek, setPerWeek] = useState('');
-  const [submitted] = useState(false)
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [duration, setDuration] = useState("");
+  const [perWeek, setPerWeek] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
   const closeModal = () => {
     EventRegister.emit("closeModal", "Input");
   };
@@ -47,6 +48,9 @@ export default function Input() {
   });
 
   useEffect(() => {
+    if (!submitted) {
+      return;
+    }
     const options = {
       method: "POST",
       url: baseUrl + "user_input",
@@ -54,43 +58,32 @@ export default function Input() {
         "content-type": "application/json",
       },
       data: {
-        startDate: '',
-        endDate: '',
-        duration: '',
-        perWeek: '',
-        submitted: '',
+        startDate: startDate,
+        endDate: endDate,
+        duration: duration,
+        perWeek: perWeek,
       },
     };
-    const gettingData = async () => {
+    const setData = async () => {
       return await axios
         .request(options)
         .then((response) => {
-          const jsonData = JSON.parse(response.data);
-          const dataList = [];
-          // for (let i = 0; i < jsonData.length; i++) {
-          //   dataList.push({
-          //     name: String(jsonData[i].name),
-          //     begin: String(jsonData[i].begin.substring(11, 16)),
-          //     end: String(jsonData[i].end.substring(11, 16)),
-          //   });
-          // }
-          // setDateData(dataList);
+          setSubmitted(false);
+          closeModal();
         })
         .catch((error) => {
-          console.log("this is the error ", error);
+          console.log("error setting data: ", error);
         });
     };
-    gettingData();
+    setData();
   }, [submitted]);
-
-  
 
   return (
     <View className="bg-gray-50 -mt-[600px]" style={{ width: "70%" }}>
       <View className="border rounded p-4 shadow-xl">
         <View className="grid grid-cols-2 grid-rows-4 gap-2">
           <View style={styles.container}>
-            <Text className='text-center -mt-2 mb-3 text-2xl font-bold'>
+            <Text className="text-center -mt-2 mb-3 text-2xl font-bold">
               Create Event
             </Text>
             <TextInput
@@ -103,21 +96,37 @@ export default function Input() {
 
             <View style={styles.row}>
               <Text style={styles.label}>Start Date:</Text>
-              <TextInput style={styles.textInput} placeholder="yyyy-mm-dd"  onChangeText={newText => setStartDate(newText)} />
+              <TextInput
+                style={styles.textInput}
+                placeholder="yyyy-mm-dd"
+                onChangeText={(newText) => setStartDate(newText)}
+              />
             </View>
 
             <View style={styles.row}>
               <Text style={styles.label}>End Date:</Text>
-              <TextInput style={styles.textInput} placeholder="yyyy-mm-dd" onChangeText={newText => setEndDate(newText)} />
+              <TextInput
+                style={styles.textInput}
+                placeholder="yyyy-mm-dd"
+                onChangeText={(newText) => setEndDate(newText)}
+              />
             </View>
 
             <View style={styles.row}>
               <Text style={styles.label}>Duration:</Text>
-              <TextInput style={styles.textInput} placeholder="num of hrs" onChangeText={newText => setDuration(newText)} />
+              <TextInput
+                style={styles.textInput}
+                placeholder="num of hrs"
+                onChangeText={(newText) => setDuration(newText)}
+              />
             </View>
             <View style={styles.row}>
               <Text style={styles.label}>Per Week</Text>
-              <TextInput style={styles.textInput} placeholder="num of days"  onChangeText={newText => setPerWeek(newText)}/>
+              <TextInput
+                style={styles.textInput}
+                placeholder="num of days"
+                onChangeText={(newText) => setPerWeek(newText)}
+              />
             </View>
           </View>
         </View>
@@ -126,7 +135,9 @@ export default function Input() {
           <Button
             className=""
             title="submit"
-            onPress={() => closeModal()}
+            onPress={() => {
+              setSubmitted(!submitted);
+            }}
           ></Button>
         </View>
       </View>
